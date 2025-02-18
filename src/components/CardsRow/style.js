@@ -1,5 +1,39 @@
 import { Box, styled } from '@mui/material';
 
+export const StyledCardsRow = styled(Box)(({ theme }) => ({
+    paddingTop: '120px',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: '1.5vw',
+    '& .css-5c1adp-MuiContainer-root': {
+        width: '18%',
+        padding: 0,
+        margin: 0,
+    },
+}));
+
+export const StyledCardsList = styled(Box)(({ theme }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    // width: 300px;
+    gap: '10px',
+    borderRadius: '20px',
+    padding: '15px 0 30px',
+    wordWrap: 'break-word',
+}));
+
+export const StyledCardsSublist = styled(Box)(({ theme }) => ({
+    height: '65vh',
+    width: '100%',
+    paddingBottom: '4vh',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '15px',
+    overflowY: 'scroll',
+}));
+
 export const StyledCard = styled(Box)(({ theme }) => ({
     position: 'relative',
     height: '100px',

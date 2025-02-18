@@ -13,7 +13,7 @@ export const handlePostTemplateCard = (state, action) => {
     );
 
     if (targetTemplate) {
-        targetTemplate.template.push(newTemplateCard);
+        targetTemplate.template.unshift(newTemplateCard);
     }
 };
 

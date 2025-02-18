@@ -8,13 +8,14 @@ import SearchInput from '../SearchInput/SearchInput';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import { useState } from 'react';
 import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';
+import { StyledCardsRow } from './style';
 
 const Header = () => {
     const [open, setOpen] = useState(false);
     const handleModal = () => setOpen(!open);
 
     return (
-        <AppBar
+        <StyledCardsRow
             component="header"
             className="header"
             sx={{ backgroundColor: 'primary.header', alignItems: 'center' }}
@@ -43,7 +44,7 @@ const Header = () => {
             </Box>
             <ThemeSwitcher />
             {open && <ModalWindow handleModal={handleModal} open={open} />}
-        </AppBar>
+        </StyledCardsRow>
     );
 };
 

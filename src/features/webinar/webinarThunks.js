@@ -18,21 +18,12 @@ export const getWebinarTemplates = createAsyncThunk(
             collection(db, 'webinar'),
             orderBy('id', 'asc'),
         );
-        // const webinarCollection = collection(db, 'webinar');
+
         const webinarSnapshot = await getDocs(webinarCollection);
         const webinarTemplates = webinarSnapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data(),
         }));
-
-        // const newTemplatesArr = [];
-        // for (let key in webinarTemplates) {
-        //     const section = webinarTemplates[key];
-        //     newTemplatesArr.push({
-        //         ...section,
-        //         template: Object.values(section.template),
-        //     });
-        // }
 
         return webinarTemplates;
     },
@@ -50,11 +41,21 @@ export const postTemplateItem = createAsyncThunk(
 
         try {
             const docRef = doc(db, 'webinar', currentDocumentName);
-            await updateDoc(docRef, {
-                template: arrayUnion(newTemplateItem),
-            });
+            const docSnap = await getDoc(docRef);
 
-            return postElementData;
+            if (docSnap.exists()) {
+                const currentTemplate = docSnap.data().template || [];
+
+                const updatedTemplate = [newTemplateItem, ...currentTemplate];
+
+                await updateDoc(docRef, {
+                    template: updatedTemplate,
+                });
+
+                return postElementData;
+            } else {
+                throw new Error('Документ не знайдено');
+            }
         } catch (e) {
             return rejectWithValue(e.message);
         }

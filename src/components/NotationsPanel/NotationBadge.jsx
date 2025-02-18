@@ -9,7 +9,7 @@ const NotationBadge = ({ notationQty, toggleDrawer }) => {
             onClick={toggleDrawer(true)}
             color="default"
             size="medium"
-            sx={{ bottom: 0, top: '15px' }}
+            sx={{ top: '23px' }}
             className="notation-badge"
             aria-label="show notations"
             disabled={notationQty === 0}

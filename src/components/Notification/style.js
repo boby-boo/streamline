@@ -4,7 +4,7 @@ export const StyledAlert = styled(Alert)(({ theme }) => ({
     position: 'absolute',
     bottom: '20px',
     right: '20px',
-    zIndex: 111,
+    zIndex: 11100,
     width: '20vw',
     opacity: 0,
     pointerEvents: 'none',

@@ -1,4 +1,4 @@
-import { CreateOrUpdateButton, DeleteButton } from '../Buttons';
+import { CreateOrUpdateButton, DeleteButton } from '../Buttons/index.js';
 import { StyledCard, StyledTextarea, StyledTextareaPanel } from './style.js';
 
 const CardTextArea = ({

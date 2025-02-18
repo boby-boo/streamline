@@ -5,10 +5,10 @@ import { useEffect, useRef, useState } from 'react';
 import Card from '../Card/Card';
 import { postTemplateItem } from '../../features/webinar/webinarThunks';
 
-import Box from '@mui/material/Box';
-import { Container, IconButton, Typography } from '@mui/material';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { Container } from '@mui/material';
+import CardsRowHeader from './CardsRowHeader';
 import CardTextArea from './CardTextArea';
+import { StyledCardsList, StyledCardsSublist } from './style';
 
 const CardsList = ({ title, id, template }) => {
     const [text, setText] = useState('');
@@ -66,48 +66,17 @@ const CardsList = ({ title, id, template }) => {
         }
     }, [isVisible]);
 
-    const items = template.map(item => (
-        <Card
-            {...item}
-            currentDocumentName={currentDocumentName}
-            key={item.id}
-        />
-    ));
-
     return (
         <Container component="li" color="primary">
-            <Box
+            <StyledCardsList
                 key={id}
                 className="cards-list"
                 sx={{ bgcolor: 'primary.secondary' }}
             >
-                <Box
-                    component="div"
-                    sx={{
-                        height: '80px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                    }}
-                >
-                    <Typography
-                        component="h2"
-                        variant="h6"
-                        textAlign="center"
-                        flexGrow="1"
-                    >
-                        {title}
-                    </Typography>
-                    <IconButton
-                        color="primary"
-                        aria-label="delete"
-                        size="medium"
-                        onClick={toggleVisibleCard}
-                    >
-                        <AddCircleIcon size="inherit" />
-                    </IconButton>
-                </Box>
-
+                <CardsRowHeader
+                    title={title}
+                    toggleVisibleCard={toggleVisibleCard}
+                />
                 {isVisible && (
                     <CardTextArea
                         createNewCard={createNewCard}
@@ -119,10 +88,20 @@ const CardsList = ({ title, id, template }) => {
                         newTemplateCard={newTemplateCard}
                     />
                 )}
-                <Box component="ul" className="cards-sublist" padding={1.3}>
-                    {items}
-                </Box>
-            </Box>
+                <StyledCardsSublist
+                    component="ul"
+                    className="cards-sublist"
+                    padding={1.3}
+                >
+                    {template.map(item => (
+                        <Card
+                            {...item}
+                            currentDocumentName={currentDocumentName}
+                            key={item.id}
+                        />
+                    ))}
+                </StyledCardsSublist>
+            </StyledCardsList>
         </Container>
     );
 };

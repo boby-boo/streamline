@@ -6,7 +6,10 @@ import {
 } from '../../features/webinar/webinarThunks';
 import { Typography } from '@mui/material';
 import { CreateOrUpdateButton, DeleteButton } from '../Buttons';
+
 import { StyledButtonsPanel, StyledCard, TextAreaStyled } from './style';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 const Card = ({ id, title, currentDocumentName }) => {
     const dispatch = useDispatch();
@@ -14,6 +17,14 @@ const Card = ({ id, title, currentDocumentName }) => {
     const [text, setText] = useState(title);
     const [prevState, setPrevState] = useState(title);
     const [styleCard, setStyleCard] = useState({ height: '0' });
+
+    const { attributes, listeners, setNodeRef, transform, transition } =
+        useSortable({ id });
+
+    const style = {
+        transition,
+        transform: CSS.Transform.toString(transform),
+    };
 
     const updateCard = e => {
         const targetCard = e.target.closest('.card-template');
@@ -51,7 +62,14 @@ const Card = ({ id, title, currentDocumentName }) => {
     };
 
     return (
-        <StyledCard component="li" className="card-template">
+        <StyledCard
+            component="li"
+            className="card-template"
+            ref={setNodeRef}
+            style={style}
+            {...attributes}
+            {...listeners}
+        >
             {isEditing ? (
                 <TextAreaStyled
                     component="textarea"
@@ -70,7 +88,10 @@ const Card = ({ id, title, currentDocumentName }) => {
                     {text}
                 </Typography>
             )}
-            <StyledButtonsPanel className="card-buttons">
+            <StyledButtonsPanel
+                className="card-buttons"
+                onMouseDownCapture={e => e.stopPropagation()}
+            >
                 <CreateOrUpdateButton
                     updateCard={updateCard}
                     isEditing={isEditing}

@@ -1,25 +1,16 @@
 import { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import CardsList from '../CardsList/CardsList';
+import CardsList from '../CardsRow/CardsList.jsx';
 import { getWebinarTemplates } from '../../features/webinar/webinarThunks';
 import { Box, CssBaseline } from '@mui/material';
 import Header from '../Header/Header';
 import NotationsPanel from '../NotationsPanel/NotationsPanel';
 import { ThemeProviderCustom } from '../ThemeProviderCustom/ThemeProviderCustom.jsx';
 import Notification from '../Notification/Notification.jsx';
+import CardsRow from '../CardsRow/CardsRow.jsx';
 
 const App = () => {
-    const isFiltered = useSelector(state => state.webinar.isFiltered);
-    const filteredTemplatesAreEmpty = useSelector(
-        state => state.webinar.filteredTemplatesAreEmpty,
-    );
-    const templates = useSelector(state =>
-        isFiltered ? state.webinar.filteredTemplates : state.webinar.templates,
-    );
-
-    const isLoading = useSelector(state => state.webinar.loading);
-    const error = useSelector(state => state.webinar.error);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -56,6 +47,7 @@ const App = () => {
             }
         });
     }, []);
+
     useEffect(() => {
         dispatch(getWebinarTemplates());
     }, [dispatch]);
@@ -63,24 +55,17 @@ const App = () => {
     return (
         <ThemeProviderCustom>
             <CssBaseline />
+            <NotationsPanel />
             <Box
                 component="div"
-                sx={{ bgcolor: 'primary.secondary', minWidth: '100vw' }}
+                sx={{
+                    width: '100%',
+                    height: '100%',
+                    bgcolor: 'secondary.main',
+                }}
             >
                 <Header />
-
-                <NotationsPanel />
-                <Box component="ul" className="cards-row" data-cards-row>
-                    {isLoading && <h2>Loading</h2>}
-                    {isFiltered && filteredTemplatesAreEmpty && (
-                        <h2>Cards not found</h2>
-                    )}
-
-                    {templates[0]?.template.length !== 0 &&
-                        templates.map(list => (
-                            <CardsList {...list} key={list.id} />
-                        ))}
-                </Box>
+                <CardsRow />
             </Box>
             <Notification />
         </ThemeProviderCustom>
