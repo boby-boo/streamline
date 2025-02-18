@@ -1,0 +1,26 @@
+body {
+    height: 100%;
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background: transparentize(red, 1);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: transparentize(red, .8);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-corner {
+    width: 0;
+    height: 0;
+}
+
+::-webkit-scrollbar:horizontal {
+    display: none;
+}
