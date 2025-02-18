@@ -6,17 +6,18 @@ export const StyledCardsRow = styled(Box)(({ theme }) => ({
     flexDirection: 'row',
     justifyContent: 'center',
     gap: '1.5vw',
-    '& .css-5c1adp-MuiContainer-root': {
-        minWidth: '18%',
-        padding: 0,
-        margin: 0,
-    },
+    width: '100%',
+    // '& .css-5c1adp-MuiContainer-root': {
+    //     width: '18%',
+    //     padding: 0,
+    //     margin: 0,
+    // },
 }));
 
 export const StyledCardsList = styled(Box)(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
-    width: '100%',
+    width: '18%',
     // width: 300px;
     gap: '10px',
     borderRadius: '20px',

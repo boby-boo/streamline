@@ -67,42 +67,41 @@ const CardsList = ({ title, id, template }) => {
     }, [isVisible]);
 
     return (
-        <Container component="li" color="primary">
-            <StyledCardsList
-                key={id}
-                className="cards-list"
-                sx={{ bgcolor: 'primary.secondary' }}
-            >
-                <CardsRowHeader
-                    title={title}
-                    toggleVisibleCard={toggleVisibleCard}
+        <StyledCardsList
+            key={id}
+            component="li"
+            className="cards-list"
+            sx={{ bgcolor: 'primary.secondary' }}
+        >
+            <CardsRowHeader
+                title={title}
+                toggleVisibleCard={toggleVisibleCard}
+            />
+            {isVisible && (
+                <CardTextArea
+                    createNewCard={createNewCard}
+                    removeCard={removeCard}
+                    newCardRef={newCardRef}
+                    text={text}
+                    toggleValue={toggleValue}
+                    currentDocumentName={currentDocumentName}
+                    newTemplateCard={newTemplateCard}
                 />
-                {isVisible && (
-                    <CardTextArea
-                        createNewCard={createNewCard}
-                        removeCard={removeCard}
-                        newCardRef={newCardRef}
-                        text={text}
-                        toggleValue={toggleValue}
+            )}
+            <StyledCardsSublist
+                component="ul"
+                className="cards-sublist"
+                padding={1.3}
+            >
+                {template.map(item => (
+                    <Card
+                        {...item}
                         currentDocumentName={currentDocumentName}
-                        newTemplateCard={newTemplateCard}
+                        key={item.id}
                     />
-                )}
-                <StyledCardsSublist
-                    component="ul"
-                    className="cards-sublist"
-                    padding={1.3}
-                >
-                    {template.map(item => (
-                        <Card
-                            {...item}
-                            currentDocumentName={currentDocumentName}
-                            key={item.id}
-                        />
-                    ))}
-                </StyledCardsSublist>
-            </StyledCardsList>
-        </Container>
+                ))}
+            </StyledCardsSublist>
+        </StyledCardsList>
     );
 };
 
