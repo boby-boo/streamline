@@ -7,7 +7,7 @@ export const StyledCardsRow = styled(Box)(({ theme }) => ({
     justifyContent: 'center',
     gap: '1.5vw',
     '& .css-5c1adp-MuiContainer-root': {
-        width: '18%',
+        minWidth: '18%',
         padding: 0,
         margin: 0,
     },
