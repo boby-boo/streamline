@@ -11,19 +11,31 @@ import { StyledButtonsPanel, StyledCard, TextAreaStyled } from './style';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-const Card = ({ id, title, currentDocumentName }) => {
-    const dispatch = useDispatch();
+const Card = ({
+    id,
+    title,
+    currentDocumentName,
+    someoneIsDragging,
+    setCardIsEdit,
+}) => {
     const [isEditing, setIsEditing] = useState(false);
     const [text, setText] = useState(title);
     const [prevState, setPrevState] = useState(title);
     const [styleCard, setStyleCard] = useState({ height: '0' });
+    const dispatch = useDispatch();
 
-    const { attributes, listeners, setNodeRef, transform, transition } =
-        useSortable({ id });
+    const {
+        attributes,
+        isDragging,
+        listeners,
+        setNodeRef,
+        transform,
+        transition,
+    } = useSortable({ id: id });
 
     const style = {
+        transform: CSS.Translate.toString(transform),
         transition,
-        transform: CSS.Transform.toString(transform),
     };
 
     const updateCard = e => {
@@ -40,8 +52,10 @@ const Card = ({ id, title, currentDocumentName }) => {
         });
 
         if (isEditing) {
+            setCardIsEdit(false);
             setIsEditing(!isEditing);
         } else {
+            setCardIsEdit(true);
             setIsEditing(!isEditing);
             setPrevState(text);
         }
@@ -65,10 +79,21 @@ const Card = ({ id, title, currentDocumentName }) => {
         <StyledCard
             component="li"
             className="card-template"
+            id={id}
             ref={setNodeRef}
             style={style}
             {...attributes}
             {...listeners}
+            onClick={() => {
+                if (someoneIsDragging) {
+                    console.log('a card somewhere is being dragged still');
+                    return;
+                }
+                if (isDragging) {
+                    console.log('this card is being dragged still');
+                    return;
+                }
+            }}
         >
             {isEditing ? (
                 <TextAreaStyled

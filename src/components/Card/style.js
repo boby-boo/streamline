@@ -4,6 +4,7 @@ export const StyledCard = styled(Box)(({ theme }) => ({
     position: 'relative',
     height: 'fit-content',
     padding: '5px 10px',
+    width: '100%',
     backgroundColor: theme.palette.secondary.main,
     borderRadius: '15px',
     cursor: 'pointer',

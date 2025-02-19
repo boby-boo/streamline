@@ -1,17 +1,12 @@
 import { Box, styled } from '@mui/material';
 
 export const StyledCardsRow = styled(Box)(({ theme }) => ({
-    paddingTop: '120px',
+    paddingTop: '8vh',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     gap: '1.5vw',
     width: '100%',
-    // '& .css-5c1adp-MuiContainer-root': {
-    //     width: '18%',
-    //     padding: 0,
-    //     margin: 0,
-    // },
 }));
 
 export const StyledCardsList = styled(Box)(({ theme }) => ({

@@ -44,3 +44,17 @@ export const handleUpdateTemplateCard = (state, action) => {
         );
     }
 };
+
+export const handleDraggableTemplateCard = (state, action) => {
+    const { cards, currentDocumentName } = action.payload;
+
+    const currentDocumentId = getCurrentDocumentName(currentDocumentName);
+    const targetTemplate = state.templates.find(
+        template => template.id === currentDocumentId,
+    );
+    targetTemplate.template = cards;
+
+    // if (targetTemplate) {
+    //     targetTemplate.template.unshift(newTemplateCard);
+    // }
+};

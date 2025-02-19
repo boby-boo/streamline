@@ -1,12 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import {
+    draggableUpdateTemplates,
     getWebinarTemplates,
     postTemplateItem,
     removeTemplateItem,
     updateTemplateItem,
 } from './webinarThunks';
 import {
+    handleDraggableTemplateCard,
     handlePostTemplateCard,
     handleRemoveTemplateCard,
     handleUpdateTemplateCard,
@@ -83,6 +85,11 @@ const webinarSlice = createSlice({
         builder.addCase(updateTemplateItem.rejected, action => {
             state.loading = false;
             state.error = action.payload;
+        });
+        builder.addCase(draggableUpdateTemplates.pending, action => {});
+        builder.addCase(draggableUpdateTemplates.fulfilled, (state, action) => {
+            // state.templates = action.payload;
+            handleDraggableTemplateCard(state, action);
         });
     },
 });

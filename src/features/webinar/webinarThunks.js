@@ -62,6 +62,31 @@ export const postTemplateItem = createAsyncThunk(
     },
 );
 
+export const draggableUpdateTemplates = createAsyncThunk(
+    'webinar/draggableUpdateTemplates',
+    async (cardsData, { rejectWithValue }) => {
+        const { cards, currentDocumentName } = cardsData;
+        try {
+            const docRef = doc(db, 'webinar', currentDocumentName);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const updatedTemplate = [...cards];
+
+                await updateDoc(docRef, {
+                    template: updatedTemplate,
+                });
+
+                return cardsData;
+            } else {
+                throw new Error('Документ не знайдено');
+            }
+        } catch (e) {
+            return rejectWithValue(e.message);
+        }
+    },
+);
+
 export const removeTemplateItem = createAsyncThunk(
     'webinar/removeTemplateItem',
     async (templateToRemove, { rejectWithValue }) => {
@@ -99,8 +124,6 @@ export const updateTemplateItem = createAsyncThunk(
         const { id, updateText, currentDocumentName } = updateData;
 
         try {
-            console.log('ID для оновлення:', id);
-
             const docRef = doc(db, 'webinar', currentDocumentName);
             const docSnap = await getDoc(docRef);
 
