@@ -7,6 +7,7 @@ export const handlePostTemplateCard = (state, action) => {
         title,
     };
     const currentDocumentId = getCurrentDocumentName(currentDocumentName);
+    console.log('currentDocumentId: ', typeof currentDocumentId);
 
     const targetTemplate = state.templates.find(
         template => template.id === currentDocumentId,
@@ -53,8 +54,4 @@ export const handleDraggableTemplateCard = (state, action) => {
         template => template.id === currentDocumentId,
     );
     targetTemplate.template = cards;
-
-    // if (targetTemplate) {
-    //     targetTemplate.template.unshift(newTemplateCard);
-    // }
 };

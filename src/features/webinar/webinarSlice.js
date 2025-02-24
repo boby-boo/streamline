@@ -22,6 +22,7 @@ const filteredTemplates = {
 
 const initialState = {
     templates: [],
+    templateName: localStorage.getItem('template') || 'webinar',
     isFiltered: false,
     filteredTemplates,
     filteredTemplatesAreEmpty: true,
@@ -40,10 +41,14 @@ const webinarSlice = createSlice({
             state.isFiltered = isFiltered;
             state.filteredTemplatesAreEmpty = filteredTemplatesAreEmpty;
         },
+        queryTemplate: (state, action) => {
+            state.templateName = action.payload;
+        },
     },
     extraReducers: builder => {
         builder.addCase(getWebinarTemplates.pending, state => {
             state.loading = true;
+            state.templates = [];
         });
         builder.addCase(getWebinarTemplates.fulfilled, (state, action) => {
             state.loading = false;
@@ -88,11 +93,10 @@ const webinarSlice = createSlice({
         });
         builder.addCase(draggableUpdateTemplates.pending, action => {});
         builder.addCase(draggableUpdateTemplates.fulfilled, (state, action) => {
-            // state.templates = action.payload;
             handleDraggableTemplateCard(state, action);
         });
     },
 });
 
-export const { filterTemplate } = webinarSlice.actions;
+export const { filterTemplate, queryTemplate } = webinarSlice.actions;
 export default webinarSlice.reducer;
